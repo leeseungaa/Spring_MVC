@@ -56,11 +56,13 @@
 			  url: "/test/coffee/checkAmount",
 			  data: { amount : amount }
 			})
-			  .done(function( result ) {
-				if (result == "1"){
+			  .done(function( msg ) {
+				if (msg.result == "success"){
 					alert("주문이 가능합니다.");
-				} else {
+				} else if (msg.result == "fail") {
 					alert("재고가 부족합니다.");
+				} else {
+					alert("???");
 				}
 			   
 			  });

@@ -1,6 +1,9 @@
 
 package com.global.coffee.controller;
 
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +14,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.global.coffee.service.CoffeeService;
 import com.global.coffee.vo.CoffeeVO;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -56,13 +61,17 @@ public class CoffeeController {
 	
 	
 	@PostMapping(value = "/checkAmount")
-	@ResponseBody
-	public String checkAmount(CoffeeVO coffeeVO) {
-		
-		if (coffeeService.checkAmount(coffeeVO)){
-			 return "1";
-			
+	public ResponseEntity<String> checkAmount(CoffeeVO coffeeVO) {
+		Gson gson = new Gson();
+		JsonObject jo = new JsonObject();
+		if (coffeeService.checkAmount(coffeeVO)) {
+			jo.addProperty("result", "success");
+		} else {
+			jo.addProperty("result", "fail");
 		}
-		return "0";
+		HttpHeaders header = new HttpHeaders();
+		header.add("Content-Type", "application/json;charset=UTF-8");
+		return new ResponseEntity<>(gson.toJson(jo), header, HttpStatus.OK);
 	}
+	
 }
