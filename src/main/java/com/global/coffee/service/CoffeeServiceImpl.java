@@ -50,4 +50,15 @@ public class CoffeeServiceImpl implements CoffeeService {
 		
 	}
 
+	@Override
+	public boolean checkAmount(CoffeeVO coffeeVO) {
+		//log.info("커피 재고 확인 서비스");
+		if (10 < coffeeVO.getAmount()) {
+			
+			return false;
+		}
+		
+		return true;
+	}
+
 }

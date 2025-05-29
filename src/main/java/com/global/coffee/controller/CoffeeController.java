@@ -1,3 +1,4 @@
+
 package com.global.coffee.controller;
 
 import org.springframework.stereotype.Controller;
@@ -6,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.global.coffee.service.CoffeeService;
 import com.global.coffee.vo.CoffeeVO;
@@ -51,5 +53,16 @@ public class CoffeeController {
 		return "coffee_order_result";
 		
 	}
-
+	
+	
+	@PostMapping(value = "/checkAmount")
+	@ResponseBody
+	public String checkAmount(CoffeeVO coffeeVO) {
+		
+		if (coffeeService.checkAmount(coffeeVO)){
+			 return "1";
+			
+		}
+		return "0";
+	}
 }

@@ -30,7 +30,8 @@
 		<input type='checkbox' name='etc' value='빨대 포함' /> 빨대 포함
 		<input type='checkbox' name='etc' value='캐리어 포함' /> 캐리어 포함
 		<h3>[수량]</h3>
-		<input type="number" name="amount" min="1" max="9" placeholder = "수량">
+		<input type="number" id = "amount" name="amount" min="1" max="9" placeholder = "수량">
+		<input type="button" id='btnCheckAmount' value='재고확인'>
 		<br>
 		<div style = "text-align: center">
 		<input class="btn btn-outline-primary" type="submit" value="주문하기">
@@ -38,6 +39,35 @@
 		</form>
 		</section>
 		<%@include file="./coffee_footer.jsp" %>
+		
+		
+		<script>
+			
+			$(document).ready(function(){
+			    $("#btnCheckAmount").click(checkAmount); 
+			});
+			
+			function checkAmount(){
+				
+			let amount = document.getElementById('amount').value ;
+			
+			$.ajax({
+			  method: "POST",
+			  url: "/test/coffee/checkAmount",
+			  data: { amount : amount }
+			})
+			  .done(function( result ) {
+				if (result == "1"){
+					alert("주문이 가능합니다.");
+				} else {
+					alert("재고가 부족합니다.");
+				}
+			   
+			  });
+			  }
+			
+		</script>
+			
 	</div>
 	</body>
 	

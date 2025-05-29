@@ -11,5 +11,7 @@ public interface CoffeeService {
 	public void orderCoffee(CoffeeVO coffeeVO);
 
 	public String getCoffeeName(String code);
+	
+	public boolean checkAmount(CoffeeVO coffeeVO);
 
 }
